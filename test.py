@@ -8,6 +8,7 @@ import gzip
 
 PROCESSED_DATA_FILE = 'data/processed_data.pkl.gz'
 CRISTI_TEST_CSV = 'data/cristi_test.csv'
+MODEL_WEIGHTS = 'model/qusim_model_weights.h5'
 
 #1. Load processed support data such as vocabulary and embeddings
 print("Load processed support data")
@@ -30,7 +31,7 @@ model = create_network(n_hidden, max_seq_length, embeddings, embedding_dim)
 # Adadelta optimizer, with gradient clipping by norm
 optimizer = Adadelta(clipnorm=gradient_clipping_norm)    
 model.compile(loss='mean_squared_error', optimizer=optimizer, metrics=['accuracy'])
-model.load_weights('model/qusim_model_weights.h5')    
+model.load_weights(MODEL_WEIGHTS)    
 
 #3. Load test data
 print("Load test data")
