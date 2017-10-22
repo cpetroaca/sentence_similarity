@@ -52,7 +52,7 @@ gradient_clipping_norm = 1.25
 batch_size = 64
 n_epoch = 15
 
-model = create_network(n_hidden, batch_size, n_epoch, max_seq_length, embeddings, embedding_dim)
+model = create_network(n_hidden, max_seq_length, embeddings, embedding_dim)
 
 # Adadelta optimizer, with gradient clipping by norm
 optimizer = Adadelta(clipnorm=gradient_clipping_norm)    
