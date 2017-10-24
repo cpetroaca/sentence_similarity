@@ -14,7 +14,7 @@ TRAIN_CSV = 'data/train.csv'
 TEST_CSV = 'data/test.csv'
 EMBEDDING_FILE = 'data/GoogleNews-vectors-negative300.bin.gz'
 PROCESSED_DATA_FILE = 'data/processed_data.pkl.gz'
-MODEL_FILE = 'model/qusim_model_weights.h5'
+MODEL_FILE = 'model/sensim_adadelta_model_weights.h5'
 
 # Load training and test set
 train_df = pd.read_csv(TRAIN_CSV)
@@ -48,15 +48,13 @@ X_train, X_validation, Y_train, Y_validation = split_data(train_df, validation_s
 
 # Model variables
 n_hidden = 50
-gradient_clipping_norm = 1.25
 batch_size = 64
 n_epoch = 15
+gradient_clipping_norm = 1.25
+optimizer = Adadelta(clipnorm=gradient_clipping_norm)
+#optimizer = 'Adam'
 
-model = create_network(n_hidden, max_seq_length, embeddings, embedding_dim)
-
-# Adadelta optimizer, with gradient clipping by norm
-optimizer = Adadelta(clipnorm=gradient_clipping_norm)    
-model.compile(loss='mean_squared_error', optimizer=optimizer, metrics=['accuracy'])
+model = create_network(n_hidden, optimizer, max_seq_length, embeddings, embedding_dim)
 
 # Start training
 training_start_time = time()

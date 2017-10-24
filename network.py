@@ -9,7 +9,7 @@ def exponent_neg_manhattan_distance(left, right):
     ''' Helper function for the similarity estimate of the LSTMs outputs'''
     return K.exp(-K.sum(K.abs(left-right), axis=1, keepdims=True))
 
-def create_network(n_hidden, max_seq_length, embeddings, embedding_dim):
+def create_network(n_hidden, optimizer, max_seq_length, embeddings, embedding_dim):
     # The visible layer
     left_input = Input(shape=(max_seq_length,), dtype='int32')
     right_input = Input(shape=(max_seq_length,), dtype='int32')
@@ -31,5 +31,7 @@ def create_network(n_hidden, max_seq_length, embeddings, embedding_dim):
     
     # Pack it all up into a model
     malstm = Model([left_input, right_input], [malstm_distance])
+    
+    malstm.compile(loss='mean_squared_error', optimizer=optimizer, metrics=['accuracy'])
     
     return malstm;

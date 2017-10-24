@@ -26,12 +26,11 @@ print("Initialize neural net")
 # Model variables
 n_hidden = 50
 gradient_clipping_norm = 1.25
+optimizer = Adadelta(clipnorm=gradient_clipping_norm)
+#optimizer = 'Adam'
 
-model = create_network(n_hidden, max_seq_length, embeddings, embedding_dim)
-# Adadelta optimizer, with gradient clipping by norm
-optimizer = Adadelta(clipnorm=gradient_clipping_norm)    
-model.compile(loss='mean_squared_error', optimizer=optimizer, metrics=['accuracy'])
-model.load_weights(MODEL_WEIGHTS)    
+model = create_network(n_hidden, optimizer, max_seq_length, embeddings, embedding_dim)
+model.load_weights(MODEL_WEIGHTS)  
 
 #3. Load test data
 print("Load test data")
