@@ -8,7 +8,7 @@ import gzip
 
 PROCESSED_DATA_FILE = 'data/processed_data.pkl.gz'
 CRISTI_TEST_CSV = 'data/cristi_test.csv'
-MODEL_WEIGHTS = 'model/qusim_model_weights.h5'
+MODEL_WEIGHTS = 'model/sensim_adadelta_model_weights.h5'
 
 #1. Load processed support data such as vocabulary and embeddings
 print("Load processed support data")
